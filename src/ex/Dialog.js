@@ -1,13 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
 import Button from "@material-ui/core/Button";
-
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import AlertDialog from "./dialog/AlertDialog";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,17 +10,18 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
-export default function AlertDialog() {
+export default function DialogExample() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const title = "타이틀";
+  const [alertDialogOpen, setAlertDialogOpen] = React.useState(false);
+  const title = "다이얼로그의 타이틀입니다";
+  const content = "다이얼로그의 내용입니다";
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setAlertDialogOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setAlertDialogOpen(false);
   };
 
   return (
@@ -34,27 +29,13 @@ export default function AlertDialog() {
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         open alert dialog
       </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            이건 내용입니다.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            취소
-          </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            확인
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <AlertDialog
+        open={alertDialogOpen}
+        onDisagree={handleClose}
+        onAgree={handleClose}
+        title={title}
+        content={content}
+      />
     </div>
   );
 }
